@@ -1,0 +1,32 @@
+{
+  "name": "passport-ringcentral",
+  "version": "0.0.0",
+  "description": "Passport strategy for authenticating with RingCentral",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/docket-hq/passport-ringcentral.git"
+  },
+  "keywords": [
+    "node",
+    "passport",
+    "ringcentral",
+    "oauth"
+  ],
+  "author": "John Barlow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/docket-hq/passport-ringcentral/issues"
+  },
+  "homepage": "https://github.com/docket-hq/passport-ringcentral#readme",
+  "dependencies": {
+    "passport-oauth2": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "should": "^13.2.3"
+  }
+}
