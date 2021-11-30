@@ -26,6 +26,7 @@ class Strategy extends OAuth2Strategy {
 	 *                                        to the verfication callback
 	 *   - authorizationURL   url for the first part of the oauth grant
 	 *   - tokenURL           url for the oauth token grant
+	 *   - useSandbox         boolean to use the ringcentral sandbox api
 	 *
 	 * Examples:
 	 *
@@ -49,6 +50,13 @@ class Strategy extends OAuth2Strategy {
 		options = options || {};
 		options.authorizationURL = options.authorizationURL || 'https://platform.ringcentral.com/restapi/oauth/authorize';
 		options.tokenURL = options.tokenURL || 'https://platform.ringcentral.com/restapi/oauth/token';
+
+		//use the sandbox api
+		if(options.useSandbox) {
+			options.authorizationURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/authorize';
+			options.tokenURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/token';
+		}
+
 		super(options, verify);
 
 		//pass this for tests
@@ -60,6 +68,15 @@ class Strategy extends OAuth2Strategy {
 
 		// need to set this to true so that access_token is not appended to url
 		this._oauth2.useAuthorizationHeaderforGET(true);
+
+		//sign the request
+		const secret = new Buffer.from(
+			options.clientID + ':' + options.clientSecret
+		).toString('base64');
+
+		this._oauth2._customHeaders = {
+			Authorization: `Basic ${secret}`
+		}
 	}
 
 	/**
@@ -70,7 +87,6 @@ class Strategy extends OAuth2Strategy {
 	 *   - `provider`         always set to `ringcentral`
 	 *   - `id`               the user's RingCentral ID
 	 *   - `mainNumber`       the user's displayName name
-	 *   - _raw               body of the response (extra stuff)
 	 *   - _json              json of the raw response (extra stuff)
 	 *
 	 * @param {String} accessToken
@@ -89,7 +105,6 @@ class Strategy extends OAuth2Strategy {
 				profile.id = json.id;
 				profile.mainNumber = json.mainNumber;
 
-				profile._raw = body;
 				profile._json = json;
 
 				done(null, profile);
