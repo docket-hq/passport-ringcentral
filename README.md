@@ -59,6 +59,7 @@ application:
 - **passReqToCallback** (default: false) - directs passport to send the request object to the verfication callback
 - **authorizationURL**  (default: 'https://platform.ringcentral.com/restapi/oauth/authorize') - url for the first part of the oauth flow
 - **tokenURL**          (default: 'https://platform.ringcentral.com/restapi/oauth/token') - url for the oauth token grant
+- **useSandbox**        (default: false) - tells the strategy to use the RingCentral sandbox endpoints
 
 ## Credits
 
