@@ -1,6 +1,6 @@
 {
   "name": "passport-ringcentral",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Passport strategy for authenticating with RingCentral",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,9 @@
     "oauth"
   ],
   "author": "Docket <help@dockethq.com> (https://www.dockethq.com/)",
-  "contributors": ["John Barlow <jnbarlow@gmail.com>"],
+  "contributors": [
+    "John Barlow <jnbarlow@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/docket-hq/passport-ringcentral/issues"
