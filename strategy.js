@@ -51,10 +51,12 @@ class Strategy extends OAuth2Strategy {
 		options.authorizationURL = options.authorizationURL || 'https://platform.ringcentral.com/restapi/oauth/authorize';
 		options.tokenURL = options.tokenURL || 'https://platform.ringcentral.com/restapi/oauth/token';
 
+		this.useSandbox = false;
 		//use the sandbox api
 		if(options.useSandbox) {
 			options.authorizationURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/authorize';
 			options.tokenURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/token';
+			this.useSandbox = true;
 		}
 
 		super(options, verify);
@@ -95,7 +97,11 @@ class Strategy extends OAuth2Strategy {
 	 */
 	userProfile(accessToken, done) {
 		// get user info
-		this._oauth2.get('https://platform.devtest.ringcentral.com/restapi/v1.0/account/~', accessToken, function (err, body, res) {
+		let url = 'https://platform.ringcentral.com/restapi/v1.0/account/~';
+		if(this.useSandbox) {
+			url = 'https://platform.devtest.ringcentral.com/restapi/v1.0/account/~';
+		}
+		this._oauth2.get(url, accessToken, function (err, body, res) {
 			if (err) { return done(new InternalOAuthError('failed to fetch user profile', err)); }
 
 			try {
