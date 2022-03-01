@@ -51,15 +51,14 @@ class Strategy extends OAuth2Strategy {
 		options.authorizationURL = options.authorizationURL || 'https://platform.ringcentral.com/restapi/oauth/authorize';
 		options.tokenURL = options.tokenURL || 'https://platform.ringcentral.com/restapi/oauth/token';
 
-		this.useSandbox = false;
 		//use the sandbox api
 		if(options.useSandbox) {
 			options.authorizationURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/authorize';
 			options.tokenURL = 'https://platform.devtest.ringcentral.com/restapi/oauth/token';
-			this.useSandbox = true;
 		}
 
 		super(options, verify);
+		this.useSandbox = options.useSandbox || false;
 
 		//pass this for tests
 		this.userAuthorizationURL = options.authorizationURL;
